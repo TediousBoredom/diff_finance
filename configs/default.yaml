@@ -1,0 +1,79 @@
+# Default configuration for DiffFinance
+
+# Model
+model:
+  action_dim: 10
+  state_dim: 50
+  opponent_dim: 40
+  constraint_dim: 20
+  num_opponents: 4
+  hidden_dim: 512
+  num_diffusion_steps: 1000
+  beta_schedule: cosine
+
+# Training
+training:
+  num_episodes: 500
+  episode_length: 100
+  batch_size: 64
+  num_epochs: 50
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  gradient_clip: 1.0
+  
+# Environment
+environment:
+  num_agents: 5
+  initial_price: 100.0
+  tick_size: 0.01
+  max_position: 1000.0
+  transaction_cost: 0.001
+  price_impact_coef: 0.01
+  volatility: 0.02
+  
+  # Constraints
+  price_limit_pct: 0.10
+  circuit_breaker_pct: 0.05
+  max_order_size: 100.0
+  min_order_size: 0.1
+
+# Agents
+agents:
+  market_maker:
+    target_spread: 0.02
+    max_inventory: 100.0
+    risk_aversion: 0.5
+  
+  speculator:
+    momentum_window: 10
+    mean_reversion_threshold: 0.02
+    position_limit: 50.0
+  
+  arbitrageur:
+    fair_value_window: 20
+    arbitrage_threshold: 0.01
+    max_position: 30.0
+  
+  informed_trader:
+    private_signal_strength: 0.05
+    stealth_factor: 0.3
+    max_position: 100.0
+
+# Evaluation
+evaluation:
+  num_episodes: 50
+  episode_length: 500
+
+# Logging
+logging:
+  use_wandb: false
+  wandb_project: difffinance
+  log_interval: 10
+  save_interval: 5
+
+# Paths
+paths:
+  checkpoint_dir: checkpoints
+  results_dir: results
+  evaluation_dir: evaluation
+
